@@ -3,7 +3,7 @@ import { Container, Typography } from '@mui/material';
 import { doc, onSnapshot, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Certificate from '../components/Certificate';
-import '../styles/home.css';
+import '../styles/Home.css';
 
 export default function HomePage({ user }) {
   const [certificate, setCertificate] = useState(null);
