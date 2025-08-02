@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
+import "../styles/navbar.css";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
