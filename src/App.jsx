@@ -5,7 +5,8 @@ import HomePage from './pages/HomePage';
 import SendRequestPage from './pages/SendRequestPage';
 import ReceiveRequestsPage from './pages/ReceiveRequestsPage';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { auth, provider } from './firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, provider, db } from './firebase';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -14,16 +15,28 @@ export default function App() {
     return onAuthStateChanged(auth, u => setUser(u));
   }, []);
 
-  const login = () => signInWithPopup(auth, provider);
+  const login = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const u = result.user;
+      // Store user in Firestore
+      await setDoc(doc(db, 'users', u.uid), {
+        displayName: u.displayName,
+        email: u.email,
+        createdAt: new Date(),
+      }, { merge: true });
+    } catch (err) {
+      console.error('Login error:', err);
+    }
+  };
+
   const logout = () => signOut(auth);
 
-  if (!user) {
-    return (
-      <div className="auth-container">
-        <button onClick={login}>Sign in with Google</button>
-      </div>
-    );
-  }
+  if (!user) return (
+    <div className="auth-container">
+      <button onClick={login}>Sign in with Google</button>
+    </div>
+  );
 
   return (
     <BrowserRouter>
