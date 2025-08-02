@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/home.css';
 import { getAuth, signOut } from 'firebase/auth';
 
 export default function Navbar() {
