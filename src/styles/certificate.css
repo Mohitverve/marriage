@@ -6,6 +6,7 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: #fffaf0;
+  text-align: center;
 }
 .certificateImage {
   width: 100%;
@@ -13,15 +14,7 @@
   display: block;
   border-radius: 8px;
 }
-.textFallback {
-  background: #fffaf0;
-  padding: 2rem;
-  border: 4px solid #ffd700;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-}
 
-/* Responsive for certificate */
 @media (max-width: 768px) {
   .certificate {
     padding: 0.75rem;
@@ -30,9 +23,13 @@
     border-radius: 6px;
   }
 }
+
 @media (max-width: 480px) {
   .certificate {
     margin: 1rem auto;
     padding: 0.5rem;
+  }
+  .certificateImage {
+    width: 100%;
   }
 }
