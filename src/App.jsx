@@ -21,6 +21,7 @@ export default function App() {
       const u = result.user;
       // Store user in Firestore
       await setDoc(doc(db, 'users', u.uid), {
+        uid: u.uid,
         displayName: u.displayName,
         email: u.email,
         createdAt: new Date(),
@@ -49,4 +50,3 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   );
-}
