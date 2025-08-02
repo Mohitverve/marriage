@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/certificate.css';
-import certImg from '../assets/certificatre.png';
+import certImg from '../assets/certificate.png';
 import { Button } from '@mui/material';
 
 export default function Certificate() {

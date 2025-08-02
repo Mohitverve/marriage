@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
 import { Container, Typography } from '@mui/material';
 import { doc, onSnapshot, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Certificate from '../components/Certificate';
-import '../styles/Home.css';
-import certImg from '../assets/certificate.png';
+import '../styles/home.css';
 
 export default function HomePage({ user }) {
   const [certificate, setCertificate] = useState(null);
@@ -29,17 +27,14 @@ export default function HomePage({ user }) {
   }, [user]);
 
   return (
-    <>  
-      
-      <Container sx={{ mt: 4, textAlign: 'center' }}>
-        {certificate ? (
-          <Certificate imageSrc={certImg} />
-        ) : (
-          <Typography variant="h5" className="fun-line">
-            You’re not married yet! Send or accept a proposal to get certified 💌
-          </Typography>
-        )}
-      </Container>
-    </>
+    <Container sx={{ mt: 4, textAlign: 'center' }}>
+      {certificate ? (
+        <Certificate />
+      ) : (
+        <Typography variant="h5" className="fun-line">
+          You’re not married yet! Send or accept a proposal to get certified 💌
+        </Typography>
+      )}
+    </Container>
   );
 }
