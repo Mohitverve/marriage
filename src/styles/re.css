@@ -1,0 +1,24 @@
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.request-block {
+  margin-bottom: 1.5rem;
+}
+.card {
+  padding: 1rem;
+}
+
+/* Responsive for receive page */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem;
+  }
+  .request-block {
+    margin-bottom: 1rem;
+  }
+  .card {
+    padding: 0.75rem;
+  }
+}

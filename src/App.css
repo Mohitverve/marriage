@@ -1,0 +1,37 @@
+/* Center login button */
+.auth-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fun pulsing text when single */
+.fun-line {
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+/* Form layout */
+.form-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Certificate styling */
+.certificate {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 4px solid #ffd700;
+  border-radius: 16px;
+  background: #fffaf0;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
