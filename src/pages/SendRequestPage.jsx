@@ -13,10 +13,9 @@ import {
   FormControlLabel,
   Typography
 } from '@mui/material';
-import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
+import { collection, query, where, documentId, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import '../styles/send.css';
-import Navbar from '../components/Navbar';
 
 const pheras = [
   { title: 'The First Phera: A Vow of Duty', text: 'As the couple takes their first steps around the agni, the groom leads...' },
@@ -36,7 +35,11 @@ export default function SendRequestPage({ user }) {
 
   useEffect(() => {
     (async () => {
-      const q = query(collection(db, 'users'), where('uid', '!=', user.uid));
+      // Query by document ID to exclude current user
+      const q = query(
+        collection(db, 'users'),
+        where(documentId(), '!=', user.uid)
+      );
       const snap = await getDocs(q);
       setUsers(snap.docs.map(d => ({ uid: d.id, ...d.data() })));
     })();
@@ -52,13 +55,13 @@ export default function SendRequestPage({ user }) {
       status: 'pending',
       createdAt: Date.now()
     });
-    setSelected(''); setAccepted({}); setActiveStep(0);
+    setSelected('');
+    setAccepted({});
+    setActiveStep(0);
     alert('Proposal sent!');
   };
 
   return (
-    <div> 
-      
     <Container className="container">
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
@@ -109,6 +112,5 @@ export default function SendRequestPage({ user }) {
         </Step>
       </Stepper>
     </Container>
-    </div>
   );
 }

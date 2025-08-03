@@ -12,33 +12,44 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    return onAuthStateChanged(auth, u => setUser(u));
+    const unsubscribe = onAuthStateChanged(auth, u => setUser(u));
+    return unsubscribe;
   }, []);
 
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const u = result.user;
-      // Store user in Firestore
-      await setDoc(doc(db, 'users', u.uid), {
-        uid: u.uid,
-        displayName: u.displayName,
-        email: u.email,
-        createdAt: new Date(),
-      }, { merge: true });
+      // Store user in Firestore (merge if existing)
+      await setDoc(
+        doc(db, 'users', u.uid),
+        {
+          uid: u.uid,
+          displayName: u.displayName || '',
+          email: u.email || '',
+          createdAt: new Date(),
+        },
+        { merge: true }
+      );
     } catch (err) {
       console.error('Login error:', err);
     }
   };
 
-  const logout = () => signOut(auth);
+  const logout = () => {
+    signOut(auth);
+  };
 
-  if (!user) return (
-    <div className="auth-container">
-      <button onClick={login}>Sign in with Google</button>
-    </div>
-  );
+  // If not authenticated, show login button
+  if (!user) {
+    return (
+      <div className="auth-container">
+        <button onClick={login}>Sign in with Google</button>
+      </div>
+    );
+  }
 
+  // Once authenticated, render the app routes
   return (
     <BrowserRouter>
       <Navbar onLogout={logout} />
